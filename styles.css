@@ -1,11 +1,12 @@
 /* Общие стили */
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-    --text-color: #333;
-    --light-bg: #f5f6fa;
+    --primary-color: #ff6b6b;
+    --secondary-color: #f06292;
+    --accent-color: #e91e63;
+    --text-color: #2c3e50;
+    --light-bg: #fff5f5;
     --white: #ffffff;
+    --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
 }
 
 * {
@@ -19,9 +20,14 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
+    background-color: var(--light-bg);
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
 }
 
 .container {
@@ -33,7 +39,7 @@ body {
 /* Шапка сайта */
 .header {
     background-color: var(--white);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
     position: fixed;
     width: 100%;
     top: 0;
@@ -50,9 +56,10 @@ body {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     color: var(--primary-color);
+    font-family: 'Playfair Display', serif;
 }
 
 .nav-list {
@@ -66,13 +73,13 @@ body {
 
 .nav-list a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: var(--text-color);
     font-weight: 500;
     transition: color 0.3s;
 }
 
 .nav-list a:hover {
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 /* Мобильное меню */
@@ -93,189 +100,223 @@ body {
 /* Главный экран */
 .hero {
     height: 100vh;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: var(--gradient);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: var(--white);
     padding-top: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">❤️</text></svg>') repeat;
+    opacity: 0.1;
+    animation: floating 20s linear infinite;
+}
+
+@keyframes floating {
+    from {
+        transform: translateY(0) rotate(0deg);
+    }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
 }
 
 .hero-content {
-    max-width: 800px;
-    padding: 0 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-size: 4.5rem;
     margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
-.hero p {
-    font-size: 1.2rem;
+.subtitle {
+    font-size: 1.5rem;
     margin-bottom: 2rem;
+    font-family: 'Playfair Display', serif;
 }
 
-.cta-button {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background-color: var(--accent-color);
-    color: var(--white);
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+.heart-animation {
+    font-size: 3rem;
+    animation: heartbeat 1.5s infinite;
 }
 
-.cta-button:hover {
-    background-color: #c0392b;
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.3); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.3); }
+    70% { transform: scale(1); }
 }
 
-/* О нас */
-.about {
+/* История */
+.story {
     padding: 5rem 0;
-    background-color: var(--light-bg);
+    background-color: var(--white);
 }
 
-.about-content {
+.story h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.story-content {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 4rem;
 }
 
-.about-text {
+.story-text {
     flex: 1;
 }
 
-.about-image {
+.romantic-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+}
+
+.story-image {
     flex: 1;
 }
 
-.about-image img {
-    max-width: 100%;
-    border-radius: 10px;
+.polaroid {
+    background: var(--white);
+    padding: 1rem;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* Услуги */
-.services {
-    padding: 5rem 0;
-}
-
-.services h2 {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.service-card {
-    padding: 2rem;
-    text-align: center;
-    background-color: var(--white);
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transform: rotate(-3deg);
     transition: transform 0.3s;
 }
 
-.service-card:hover {
-    transform: translateY(-5px);
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.02);
 }
 
-.service-card i {
-    font-size: 2.5rem;
-    color: var(--secondary-color);
-    margin-bottom: 1rem;
+.polaroid img {
+    max-width: 100%;
+    border-radius: 5px;
 }
 
-/* Контактная форма */
-.contact {
+.caption {
+    text-align: center;
+    margin-top: 1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+}
+
+/* Галерея */
+.gallery {
     padding: 5rem 0;
     background-color: var(--light-bg);
 }
 
-.contact h2 {
+.gallery h2 {
     text-align: center;
+    font-size: 2.5rem;
     margin-bottom: 3rem;
+    color: var(--primary-color);
 }
 
-.contact-form {
-    max-width: 600px;
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.memory-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    height: 100%;
+}
+
+.memory-card:hover {
+    transform: translateY(-10px);
+}
+
+.memory-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.memory-content p {
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Послание */
+.message {
+    padding: 5rem 0;
+    background: var(--white);
+}
+
+.message h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary-color);
+}
+
+.love-letter {
+    max-width: 800px;
     margin: 0 auto;
+    padding: 2rem;
+    background: var(--light-bg);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    position: relative;
 }
 
-.form-group {
+.love-letter::before {
+    content: '❤️';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+}
+
+.love-letter p {
     margin-bottom: 1.5rem;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-.form-group textarea {
-    height: 150px;
-    resize: vertical;
-}
-
-.submit-button {
-    display: block;
-    width: 100%;
-    padding: 1rem;
-    background-color: var(--secondary-color);
-    color: var(--white);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-}
-
-.submit-button:hover {
-    background-color: #2980b9;
+    font-size: 1.1rem;
+    line-height: 1.8;
 }
 
 /* Подвал */
 .footer {
-    background-color: var(--primary-color);
+    background: var(--gradient);
     color: var(--white);
-    padding: 3rem 0 1rem;
-}
-
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-section h4 {
-    margin-bottom: 1rem;
-}
-
-.social-links a {
-    color: var(--white);
-    margin-right: 1rem;
-    font-size: 1.5rem;
-    transition: color 0.3s;
-}
-
-.social-links a:hover {
-    color: var(--secondary-color);
-}
-
-.footer-bottom {
+    padding: 2rem 0;
     text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-heart {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    animation: heartbeat 1.5s infinite;
+}
+
+.footer-text {
+    font-size: 1.2rem;
+    font-family: 'Playfair Display', serif;
 }
 
 /* Адаптивный дизайн */
@@ -303,27 +344,45 @@ body {
         margin: 1rem 0;
     }
 
-    .about-content {
+    .story-content {
         flex-direction: column;
         text-align: center;
     }
 
     .hero h1 {
-        font-size: 2rem;
+        font-size: 3rem;
     }
 
-    .hero p {
-        font-size: 1rem;
+    .subtitle {
+        font-size: 1.2rem;
+    }
+
+    .story-image {
+        margin-top: 2rem;
+    }
+
+    .polaroid {
+        transform: rotate(0);
+        margin: 0 auto;
+        max-width: 80%;
     }
 }
 
 @media (max-width: 480px) {
-    .services-grid {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .gallery-grid {
         grid-template-columns: 1fr;
     }
 
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
+    .memory-card {
+        margin: 0 1rem;
+    }
+
+    .love-letter {
+        margin: 0 1rem;
+        padding: 1.5rem;
     }
 } 
