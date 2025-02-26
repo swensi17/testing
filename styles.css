@@ -7,12 +7,36 @@
     --light-bg: #fff5f5;
     --white: #ffffff;
     --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --timeline-color: #ff4b6b;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    cursor: none;
+}
+
+/* Кастомный курсор */
+.cursor {
+    width: 10px;
+    height: 10px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.cursor-follower {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 107, 107, 0.3);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.1s;
 }
 
 html {
@@ -24,6 +48,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--light-bg);
+    overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -38,7 +63,8 @@ h1, h2, h3 {
 
 /* Шапка сайта */
 .header {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     box-shadow: 0 2px 15px rgba(0,0,0,0.1);
     position: fixed;
     width: 100%;
@@ -160,63 +186,107 @@ h1, h2, h3 {
     70% { transform: scale(1); }
 }
 
-/* История */
-.story {
-    padding: 5rem 0;
-    background-color: var(--white);
+.scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
 }
 
-.story h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-    color: var(--primary-color);
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
 }
 
-.story-content {
+/* Статистика любви */
+.love-stats {
     display: flex;
-    align-items: center;
-    gap: 4rem;
+    justify-content: space-around;
+    margin-top: 2rem;
+    padding: 2rem 0;
 }
 
-.story-text {
-    flex: 1;
+.stat-item {
+    text-align: center;
 }
 
-.romantic-text {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.9rem;
     color: var(--text-color);
 }
 
-.story-image {
-    flex: 1;
-}
-
-.polaroid {
+/* Timeline */
+.timeline {
+    padding: 5rem 0;
     background: var(--white);
-    padding: 1rem;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: var(--timeline-color);
+    top: 0;
+}
+
+.timeline-container {
+    position: relative;
+}
+
+.timeline-item {
+    margin: 2rem 0;
+    position: relative;
+    width: 50%;
+    padding: 0 2rem;
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+.timeline-dot {
+    width: 20px;
+    height: 20px;
+    background: var(--timeline-color);
+    border-radius: 50%;
+    position: absolute;
+    right: -10px;
+    top: 0;
+}
+
+.timeline-item:nth-child(even) .timeline-dot {
+    left: -10px;
+}
+
+.timeline-content {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transform: rotate(-3deg);
-    transition: transform 0.3s;
-}
-
-.polaroid:hover {
-    transform: rotate(0deg) scale(1.02);
-}
-
-.polaroid img {
-    max-width: 100%;
-    border-radius: 5px;
-}
-
-.caption {
-    text-align: center;
-    margin-top: 1rem;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--primary-color);
 }
 
 /* Галерея */
@@ -300,23 +370,81 @@ h1, h2, h3 {
     line-height: 1.8;
 }
 
-/* Подвал */
-.footer {
+/* Галерея */
+.memory-footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.memory-date {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* Цитаты */
+.quotes {
+    padding: 5rem 0;
     background: var(--gradient);
     color: var(--white);
-    padding: 2rem 0;
+}
+
+.quote-slider {
     text-align: center;
+    padding: 2rem 0;
 }
 
-.footer-heart {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    animation: heartbeat 1.5s infinite;
-}
-
-.footer-text {
-    font-size: 1.2rem;
+.quote-slide {
+    display: none;
+    font-size: 1.5rem;
     font-family: 'Playfair Display', serif;
+    padding: 0 2rem;
+}
+
+.quote-slide.active {
+    display: block;
+    animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Подпись */
+.signature {
+    text-align: right;
+    margin-top: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+}
+
+.signature i {
+    margin-left: 0.5rem;
+    color: var(--primary-color);
+}
+
+/* Footer */
+.footer-quote {
+    margin-top: 1rem;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Анимации */
+[data-aos] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Адаптивный дизайн */
@@ -366,6 +494,36 @@ h1, h2, h3 {
         margin: 0 auto;
         max-width: 80%;
     }
+
+    .cursor, .cursor-follower {
+        display: none;
+    }
+
+    .timeline::before {
+        left: 30px;
+    }
+
+    .timeline-item {
+        width: 100%;
+        padding-left: 60px;
+    }
+
+    .timeline-item:nth-child(odd) {
+        text-align: left;
+    }
+
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
+
+    .timeline-dot {
+        left: 20px !important;
+    }
+
+    .love-stats {
+        flex-direction: column;
+        gap: 2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -384,5 +542,9 @@ h1, h2, h3 {
     .love-letter {
         margin: 0 1rem;
         padding: 1.5rem;
+    }
+
+    .quote-slide {
+        font-size: 1.2rem;
     }
 } 

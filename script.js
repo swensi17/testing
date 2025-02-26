@@ -1,4 +1,55 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease',
+        once: true
+    });
+
+    // Кастомный курсор
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        
+        cursorFollower.style.left = e.clientX + 'px';
+        cursorFollower.style.top = e.clientY + 'px';
+    });
+
+    document.addEventListener('mousedown', () => {
+        cursor.style.transform = 'scale(0.7)';
+        cursorFollower.style.transform = 'scale(0.7)';
+    });
+
+    document.addEventListener('mouseup', () => {
+        cursor.style.transform = 'scale(1)';
+        cursorFollower.style.transform = 'scale(1)';
+    });
+
+    // Анимация статистики
+    const stats = document.querySelectorAll('.stat-number');
+    stats.forEach(stat => {
+        const target = stat.getAttribute('data-count');
+        let current = 0;
+        const increment = target === '∞' ? 1 : target / 50;
+        const updateCount = () => {
+            if (target === '∞' && current >= 100) {
+                stat.textContent = '∞';
+                return;
+            }
+            if (current < target) {
+                current += increment;
+                stat.textContent = Math.floor(current);
+                requestAnimationFrame(updateCount);
+            } else {
+                stat.textContent = target;
+            }
+        };
+        updateCount();
+    });
+
     // Мобильное меню
     const mobileMenu = document.getElementById('mobile-menu');
     const navList = document.querySelector('.nav-list');
@@ -8,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileMenu.classList.toggle('active');
     });
 
-    // Плавная прокрутка для навигации
+    // Плавная прокрутка
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -18,32 +69,37 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth',
                     block: 'start'
                 });
-                // Закрыть мобильное меню после клика
                 navList.classList.remove('active');
                 mobileMenu.classList.remove('active');
             }
         });
     });
 
-    // Анимация появления элементов при прокрутке
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
+    // Слайдер цитат
+    const quotes = document.querySelectorAll('.quote-slide');
+    let currentQuote = 0;
 
+    function showNextQuote() {
+        quotes[currentQuote].classList.remove('active');
+        currentQuote = (currentQuote + 1) % quotes.length;
+        quotes[currentQuote].classList.add('active');
+    }
+
+    setInterval(showNextQuote, 5000);
+
+    // Анимация появления элементов
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
             }
         });
-    }, observerOptions);
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
 
-    // Добавляем анимацию для всех важных элементов
     document.querySelectorAll('.memory-card, .story-content, .love-letter, .polaroid').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         observer.observe(el);
     });
 
@@ -56,45 +112,14 @@ document.addEventListener('DOMContentLoaded', function() {
         heart.style.animationDuration = Math.random() * 3 + 2 + 's';
         document.body.appendChild(heart);
 
-        // Удаляем сердечко после анимации
         heart.addEventListener('animationend', function() {
             heart.remove();
         });
     }
 
-    // Добавляем стили для падающих сердечек
-    const style = document.createElement('style');
-    style.textContent = `
-        .falling-heart {
-            position: fixed;
-            top: -20px;
-            font-size: 1.5rem;
-            pointer-events: none;
-            z-index: 999;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-            }
-        }
-
-        .visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        .memory-card.visible {
-            transform: translateY(0) scale(1) !important;
-        }
-    `;
-    document.head.appendChild(style);
-
-    // Создаем сердечки периодически
     setInterval(createHeart, 3000);
 
-    // Добавляем эффект параллакса для фона героя
+    // Параллакс эффект для фона героя
     const hero = document.querySelector('.hero');
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
@@ -119,6 +144,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         polaroid.addEventListener('mouseleave', () => {
             polaroid.style.transform = 'rotate(-3deg)';
+        });
+    });
+
+    // Эффект при наведении на ссылки
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            cursorFollower.style.transform = 'scale(1.5)';
+        });
+        
+        link.addEventListener('mouseleave', () => {
+            cursorFollower.style.transform = 'scale(1)';
         });
     });
 
