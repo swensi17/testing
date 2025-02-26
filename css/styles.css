@@ -1,4 +1,33 @@
-/* Стили для навигационной панели */
+/* Основные стили */
+:root {
+    --primary-color: #ff6b6b;
+    --secondary-color: #4ecdc4;
+    --accent-color: #ffd93d;
+    --text-color: #2d3436;
+    --background-color: #fff0f3;
+    --card-background: rgba(255, 255, 255, 0.95);
+    --gradient-start: #ff758c;
+    --gradient-end: #ff7eb3;
+    --timeline-color: #ff9a9e;
+    --memory-color: #ffd1d1;
+    --quote-color: #ff8a8a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Стили для навигации */
 .navbar {
     position: fixed;
     top: 0;
@@ -9,6 +38,7 @@
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    padding: 10px 0;
 }
 
 .navbar.scrolled {
@@ -20,7 +50,7 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    height: 70px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -46,7 +76,8 @@
 
 .nav-menu {
     display: flex;
-    gap: 30px;
+    gap: 20px;
+    align-items: center;
 }
 
 .nav-link {
@@ -55,10 +86,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 12px;
+    padding: 8px 15px;
     border-radius: 20px;
     transition: all 0.3s ease;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .nav-link i {
@@ -69,6 +102,7 @@
 .nav-link.active {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .nav-toggle {
@@ -78,7 +112,13 @@
     color: white;
     font-size: 1.5rem;
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.nav-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 /* Адаптивность навигации */
@@ -93,10 +133,11 @@
         padding: 20px;
         flex-direction: column;
         gap: 15px;
-        transform: translateY(-100%);
+        transform: translateY(-150%);
         opacity: 0;
         transition: all 0.3s ease;
         visibility: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .nav-menu.active {
@@ -106,8 +147,10 @@
     }
 
     .nav-link {
+        width: 100%;
         justify-content: center;
         padding: 12px;
+        font-size: 1.1rem;
     }
 
     .nav-toggle {
@@ -117,7 +160,7 @@
 
 @media (max-width: 480px) {
     .nav-container {
-        height: 60px;
+        height: 50px;
     }
 
     .nav-logo {
@@ -128,35 +171,11 @@
         top: 60px;
         padding: 15px;
     }
-}
 
-/* Основные стили и анимации */
-:root {
-    --primary-color: #ff6b6b;
-    --secondary-color: #4ecdc4;
-    --accent-color: #ffd93d;
-    --text-color: #2d3436;
-    --background-color: #fff0f3;
-    --card-background: rgba(255, 255, 255, 0.95);
-    --gradient-start: #ff758c;
-    --gradient-end: #ff7eb3;
-    --timeline-color: #ff9a9e;
-    --memory-color: #ffd1d1;
-    --quote-color: #ff8a8a;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Montserrat', sans-serif;
-    background: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    overflow-x: hidden;
+    .nav-link {
+        font-size: 1rem;
+        padding: 10px;
+    }
 }
 
 /* Анимация звездного неба */
