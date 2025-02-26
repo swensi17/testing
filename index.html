@@ -5,206 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ксюша ❤️ Моя любовь</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+    <div class="stars"></div>
+    <div class="container">
+        <header>
+            <h1 class="main-title">Ксюша ❤️</h1>
+            <p class="subtitle">Моя единственная</p>
+        </header>
 
-    <header class="header">
-        <nav class="nav">
-            <div class="logo">К❤️К</div>
-            <div class="menu-toggle" id="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-list">
-                <li><a href="#home">Главная</a></li>
-                <li><a href="#story">Наша история</a></li>
-                <li><a href="#gallery">Галерея</a></li>
-                <li><a href="#timeline">Timeline</a></li>
-                <li><a href="#message">Послание</a></li>
-            </ul>
-        </nav>
-    </header>
+        <main>
+            <section class="love-story">
+                <h2>Наша История</h2>
+                <p>Даже на расстоянии наша любовь становится только сильнее. Каждый день я думаю о тебе и мечтаю о нашем будущем вместе.</p>
+                <div class="heart-animation"></div>
+            </section>
 
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-content" data-aos="fade-up">
-                <h1>Ксюша ❤️</h1>
-                <p class="subtitle">Моя единственная любовь</p>
-                <div class="heart-animation">
-                    <i class="fas fa-heart"></i>
+            <section class="about-ksyusha">
+                <h2>О моей любимой</h2>
+                <div class="info-card">
+                    <p>Тебе 18, и ты самая удивительная девушка, которую я когда-либо встречал. Твоя улыбка освещает мой мир, а твой смех делает каждый день особенным.</p>
                 </div>
-                <div class="scroll-hint">
-                    <p>Прокрути вниз</p>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-            </div>
-            <div class="floating-hearts"></div>
-        </section>
+            </section>
 
-        <section id="story" class="story">
-            <div class="container">
-                <h2 data-aos="fade-up">Наша История</h2>
-                <div class="story-content">
-                    <div class="story-text" data-aos="fade-right">
-                        <p class="romantic-text">Дорогая Ксюша, несмотря на расстояние между нами, моё сердце всегда рядом с тобой. В свои 18 лет мы уже знаем, что такое настоящая любовь. Каждый день я благодарю судьбу за встречу с тобой.</p>
-                        <p class="romantic-text">Пусть сейчас мы на расстоянии, но я верю, что наше будущее будет наполнено счастьем и радостью. Вместе мы преодолеем любые преграды.</p>
-                        <div class="love-stats">
-                            <div class="stat-item">
-                                <span class="stat-number" data-count="∞">0</span>
-                                <span class="stat-label">Бесконечная любовь</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-number" data-count="1">0</span>
-                                <span class="stat-label">Единственная</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-number" data-count="18">0</span>
-                                <span class="stat-label">Лет счастья</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="story-image" data-aos="fade-left">
-                        <div class="polaroid">
-                            <img src="https://via.placeholder.com/400x600" alt="Любовь">
-                            <p class="caption">Вместе навсегда ❤️</p>
-                        </div>
-                    </div>
+            <section class="our-pet">
+                <h2>Наш любимый Бося</h2>
+                <div class="pet-card">
+                    <div class="pet-image-placeholder">🐕</div>
+                    <p>Твой верный друг Бося - самый очаровательный пёсик на свете! Он делает нашу историю еще более особенной.</p>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="timeline" class="timeline">
-            <div class="container">
-                <h2 data-aos="fade-up">Наша История в Датах</h2>
-                <div class="timeline-container">
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3>Первая встреча</h3>
-                            <p>Момент, когда наши сердца впервые встретились</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3>Первое свидание</h3>
-                            <p>Незабываемые моменты нашего первого свидания</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3>Знакомство с Босей</h3>
-                            <p>День, когда я познакомился с твоим замечательным пёсиком</p>
-                        </div>
-                    </div>
+            <section class="future">
+                <h2>Наше Будущее</h2>
+                <div class="future-dreams">
+                    <p>Я верю, что впереди нас ждет много прекрасных моментов вместе. Расстояние - это всего лишь временное испытание, которое делает нашу любовь крепче.</p>
+                    <div class="future-animation"></div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </main>
 
-        <section id="gallery" class="gallery">
-            <div class="container">
-                <h2 data-aos="fade-up">Наши Моменты</h2>
-                <div class="gallery-grid">
-                    <div class="gallery-item" data-aos="fade-up">
-                        <div class="memory-card">
-                            <div class="memory-content">
-                                <h3>Бося 🐕</h3>
-                                <p>Твой замечательный пёсик, который делает нашу жизнь ещё радостнее. Его любовь и преданность вдохновляют нас каждый день.</p>
-                                <div class="memory-footer">
-                                    <span class="memory-date">Каждый день</span>
-                                    <i class="fas fa-paw"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="memory-card">
-                            <div class="memory-content">
-                                <h3>Наши Мечты</h3>
-                                <p>Вместе мы мечтаем о будущем, где каждый день будет наполнен любовью и счастьем. О доме, где будем жить вместе, о путешествиях и приключениях.</p>
-                                <div class="memory-footer">
-                                    <span class="memory-date">Будущее</span>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
-                        <div class="memory-card">
-                            <div class="memory-content">
-                                <h3>Любовь</h3>
-                                <p>В 18 лет мы нашли то, что многие ищут всю жизнь - настоящую любовь. Каждый день я благодарен за то, что ты есть в моей жизни.</p>
-                                <div class="memory-footer">
-                                    <span class="memory-date">Навсегда</span>
-                                    <i class="fas fa-heart"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="message" class="message">
-            <div class="container">
-                <h2 data-aos="fade-up">Послание для тебя</h2>
-                <div class="message-content">
-                    <div class="love-letter" data-aos="fade-up">
-                        <p>Дорогая Ксюша,</p>
-                        <p>Каждый день я думаю о тебе и о нашем будущем. Пусть сейчас нас разделяет расстояние, но оно не может разделить наши сердца. Я верю, что впереди нас ждёт прекрасное будущее, полное любви, радости и счастья.</p>
-                        <p>Ты делаешь мой мир ярче, а жизнь - счастливее. Твоя улыбка освещает даже самые тёмные дни, а твоя любовь даёт мне силы двигаться вперёд.</p>
-                        <p>Вместе с Босей мы создадим самую счастливую семью. Я обещаю всегда быть рядом, поддерживать тебя и любить всем сердцем.</p>
-                        <p>Я люблю тебя всем сердцем ❤️</p>
-                        <div class="signature">
-                            <span>Навсегда твой</span>
-                            <i class="fas fa-heart"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="quotes">
-            <div class="container">
-                <div class="quote-slider" data-aos="fade-up">
-                    <div class="quote-slide active">
-                        <p>"Любовь не измеряется расстоянием, она измеряется глубиной чувств"</p>
-                    </div>
-                    <div class="quote-slide">
-                        <p>"В твоих глазах я вижу наше будущее"</p>
-                    </div>
-                    <div class="quote-slide">
-                        <p>"Каждый день с тобой - это подарок судьбы"</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-heart">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <div class="footer-text">
-                    <p>Навсегда твой ❤️</p>
-                </div>
-                <div class="footer-quote">
-                    <p>"Расстояние - это испытание для любви, но не преграда для неё"</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="script.js"></script>
+        <footer>
+            <p>С любовью, навсегда твой ❤️</p>
+        </footer>
+    </div>
 </body>
 </html> 
