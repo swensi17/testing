@@ -11,6 +11,38 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">К<span class="heart-dot">❤️</span>ша</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#" class="nav-link active" data-section="intro">
+                    <i class="fas fa-home"></i>
+                    <span>Главная</span>
+                </a>
+                <a href="#love-story" class="nav-link" data-section="story">
+                    <i class="fas fa-heart"></i>
+                    <span>История</span>
+                </a>
+                <a href="#about-ksyusha" class="nav-link" data-section="about">
+                    <i class="fas fa-star"></i>
+                    <span>О тебе</span>
+                </a>
+                <a href="#special-memories" class="nav-link" data-section="memories">
+                    <i class="fas fa-camera"></i>
+                    <span>Моменты</span>
+                </a>
+                <a href="#future" class="nav-link" data-section="future">
+                    <i class="fas fa-infinity"></i>
+                    <span>Будущее</span>
+                </a>
+            </div>
+            <button class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
     <div class="intro-animation">
         <div class="intro-bg">
             <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?w=1600" alt="Love Background">
@@ -107,7 +139,7 @@
             </header>
 
             <main>
-                <section class="love-story">
+                <section class="love-story" id="love-story">
                     <div class="section-header">
                         <i class="fas fa-heart"></i>
                         <h2>Наша История</h2>
@@ -169,7 +201,7 @@
                     </div>
                 </section>
 
-                <section class="about-ksyusha">
+                <section class="about-ksyusha" id="about-ksyusha">
                     <div class="section-header">
                         <i class="fas fa-star"></i>
                         <h2>О моей любимой</h2>
@@ -205,7 +237,7 @@
                     </div>
                 </section>
 
-                <section class="special-memories">
+                <section class="special-memories" id="special-memories">
                     <div class="section-header">
                         <i class="fas fa-sparkles"></i>
                         <h2>Драгоценные Моменты</h2>
@@ -317,7 +349,7 @@
                     </div>
                 </section>
 
-                <section class="future">
+                <section class="future" id="future">
                     <div class="section-header">
                         <i class="fas fa-infinity"></i>
                         <h2>Наше Будущее</h2>
@@ -560,6 +592,76 @@
                 heart.style.top = e.clientY + 'px';
                 document.body.appendChild(heart);
                 setTimeout(() => heart.remove(), 1000);
+            });
+
+            // Навигация
+            const navbar = document.querySelector('.navbar');
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Изменение фона навбара при прокрутке
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Мобильное меню
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.querySelector('i').classList.toggle('fa-bars');
+                navToggle.querySelector('i').classList.toggle('fa-times');
+            });
+
+            // Активация пунктов меню при прокрутке
+            function setActiveLink() {
+                const sections = document.querySelectorAll('section');
+                let currentSection = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= sectionTop - 100) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', setActiveLink);
+
+            // Плавная прокрутка для ссылок навигации
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    if (targetId === '#') {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        const targetSection = document.querySelector(targetId);
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                    // Закрываем мобильное меню после клика
+                    if (window.innerWidth <= 768) {
+                        navMenu.classList.remove('active');
+                        navToggle.querySelector('i').classList.add('fa-bars');
+                        navToggle.querySelector('i').classList.remove('fa-times');
+                    }
+                });
             });
         });
     </script>
