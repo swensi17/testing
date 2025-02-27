@@ -1,0 +1,23 @@
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Папки IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Зависимости
+node_modules/
+vendor/
+
+# Файлы сборки
+dist/
+build/
+*.log
+
+# Локальные конфигурации
+*.local
+.env
+.env.* 

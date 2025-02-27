@@ -43,6 +43,8 @@
             --timeline-color: #ff9a9e;
             --memory-color: #ffd1d1;
             --quote-color: #ff8a8a;
+            --gradient-start-rgb: 253, 121, 168;
+            --gradient-end-rgb: 232, 67, 147;
         }
 
         * {
@@ -69,16 +71,21 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            padding: 10px 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px) saturate(180%);
+            -webkit-backdrop-filter: blur(8px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 12px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
         }
 
         .navbar.scrolled {
-            background: rgba(255, 107, 107, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 107, 107, 0.08);
+            backdrop-filter: blur(10px) saturate(200%);
+            -webkit-backdrop-filter: blur(10px) saturate(200%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .nav-container {
@@ -89,29 +96,56 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: relative;
         }
 
         .nav-logo {
             font-family: var(--logo-font);
             font-weight: 400;
-            -webkit-font-smoothing: antialiased;
             font-size: 1.8rem;
+            position: relative;
+            z-index: 2;
         }
 
         .logo-text {
             font-family: var(--logo-font);
             font-weight: 400;
-            -webkit-font-smoothing: antialiased;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
             gap: 5px;
+            position: relative;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(255, 123, 179, 0.2);
         }
 
-        .heart-dot {
-            font-size: 1.2rem;
-            animation: pulse 1.5s infinite;
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                #ff758c,
+                #ff7eb3,
+                transparent
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-text:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .logo-text:hover::after {
+            opacity: 1;
         }
 
         .nav-menu {
@@ -121,28 +155,60 @@
         }
 
         .nav-link {
-            color: white;
+            color: var(--text-color);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 15px;
+            padding: 10px 18px;
             border-radius: 20px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 0.95rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.1),
+                rgba(255, 255, 255, 0.05));
+            transform: translateX(-100%) skewX(-15deg);
+            transition: transform 0.5s ease;
+        }
+
+        .nav-link:hover::before {
+            transform: translateX(0) skewX(-15deg);
         }
 
         .nav-link i {
             font-size: 1.1rem;
+            transition: all 0.3s ease;
+            color: var(--primary-color);
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            background: rgba(255, 255, 255, 0.2);
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.12);
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link:hover i {
+            transform: scale(1.2) rotate(5deg);
+            color: var(--accent-color);
+        }
+
+        .heart-dot {
+            font-size: 1.2rem;
+            animation: pulse 1.5s infinite;
         }
 
         .nav-toggle {
@@ -165,36 +231,156 @@
         @media (max-width: 768px) {
             .nav-menu {
                 position: fixed;
-                top: 70px;
+                top: 0;
                 left: 0;
                 width: 100%;
-                background: rgba(255, 107, 107, 0.95);
-                backdrop-filter: blur(10px);
-                padding: 20px;
+                height: 100vh;
+                background: linear-gradient(125deg, 
+                    rgba(var(--gradient-start-rgb), 0.97) 0%,
+                    rgba(var(--gradient-end-rgb), 0.97) 100%);
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                padding: 4rem 2rem;
                 flex-direction: column;
-                gap: 15px;
-                transform: translateY(-150%);
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                transform: translateX(100%);
                 opacity: 0;
-                transition: all 0.3s ease;
+                transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
                 visibility: hidden;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .nav-menu::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.03)' fill-rule='evenodd'/%3E%3C/svg%3E");
+                opacity: 0.5;
+                z-index: -1;
             }
 
             .nav-menu.active {
-                transform: translateY(0);
+                transform: translateX(0);
                 opacity: 1;
                 visibility: visible;
             }
 
             .nav-link {
+                width: 85%;
+                max-width: 320px;
+                justify-content: flex-start;
+                padding: 1.2rem 1.8rem;
+                font-size: 1.15rem;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 20px;
+                color: white;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                transform-origin: center;
+                letter-spacing: 0.5px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-link i {
+                font-size: 1.4rem;
+                margin-right: 1.2rem;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                color: rgba(255, 255, 255, 0.9);
+            }
+
+            .nav-link span {
+                position: relative;
+                z-index: 2;
+            }
+
+            .nav-link:hover {
+                background: rgba(255, 255, 255, 0.15);
+                transform: translateY(-4px) scale(1.02);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+                letter-spacing: 1px;
+            }
+
+            .nav-link:hover i {
+                transform: scale(1.2) rotate(5deg);
+                color: white;
+            }
+
+            .nav-link::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
                 width: 100%;
-                justify-content: center;
-                padding: 12px;
-                font-size: 1.1rem;
+                height: 100%;
+                background: linear-gradient(120deg, 
+                    transparent 0%, 
+                    rgba(255, 255, 255, 0.1) 50%, 
+                    transparent 100%);
+                transform: translateX(-100%) skewX(-20deg);
+                transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .nav-link:hover::before {
+                transform: translateX(100%) skewX(-20deg);
+            }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: linear-gradient(90deg, 
+                    transparent, 
+                    rgba(255, 255, 255, 0.5), 
+                    transparent);
+                transform: scaleX(0);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .nav-link:hover::after {
+                transform: scaleX(1);
             }
 
             .nav-toggle {
-                display: block;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 48px;
+                height: 48px;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 50%;
+                color: white;
+                font-size: 1.3rem;
+                cursor: pointer;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1001;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-toggle:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: rotate(180deg) scale(1.1);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            .nav-toggle i {
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .nav-toggle:hover i {
+                transform: scale(1.2);
+                color: rgba(255, 255, 255, 1);
             }
         }
 
@@ -208,50 +394,334 @@
             }
 
             .nav-menu {
-                top: 60px;
-                padding: 15px;
+                padding: 2rem 1.5rem;
+                gap: 2rem;
             }
 
             .nav-link {
-                font-size: 1rem;
-                padding: 10px;
+                width: 90%;
+                padding: 1rem 1.5rem;
+                font-size: 1.1rem;
+                border-radius: 16px;
             }
+
+            .nav-link i {
+                font-size: 1.3rem;
+                margin-right: 1rem;
+            }
+
+            .nav-toggle {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+        }
+
+        .our-pet {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .pet-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 25px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
+        }
+
+        .pet-image-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .pet-image-placeholder i {
+            font-size: 5rem;
+            color: var(--primary-color);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pet-description h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-family: var(--logo-font);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pet-description p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .pet-traits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .pet-trait {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pet-trait:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .pet-trait i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .pet-trait span {
+            display: block;
+            font-size: 1rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .pet-story {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 217, 61, 0.1));
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .story-highlight {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            text-align: center;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-highlight::before,
+        .story-highlight::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary-color);
+            opacity: 0.2;
+            position: absolute;
+        }
+
+        .story-highlight::before {
+            top: -20px;
+            left: -10px;
+        }
+
+        .story-highlight::after {
+            bottom: -40px;
+            right: -10px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pet-traits {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pet-description h3 {
+                font-size: 1.8rem;
+            }
+            
+            .pet-description p {
+                font-size: 1rem;
+            }
+        }
+
+        .story-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .story-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-card-header i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            transition: all 0.4s ease;
+        }
+
+        .story-card:hover .story-card-header i {
+            transform: scale(1.2) rotate(5deg);
+            color: #ffd93d;
+        }
+
+        .story-card-header h4 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-family: var(--logo-font);
+            margin: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .story-card-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            text-align: left;
+            margin: 0;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        /* Стили для карточек историй */
+        .game-story-cards {
+            display: grid;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .story-card {
+            background: linear-gradient(135deg, rgba(255, 117, 140, 0.1), rgba(255, 126, 179, 0.1));
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 126, 179, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(255, 126, 179, 0.1);
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(255, 117, 140, 0.15), rgba(255, 126, 179, 0.15));
+            box-shadow: 0 8px 25px rgba(255, 126, 179, 0.2);
+            border-color: rgba(255, 126, 179, 0.3);
+        }
+
+        .story-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .story-card-header i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.4s ease;
+        }
+
+        .story-card:hover .story-card-header i {
+            transform: scale(1.2) rotate(5deg);
+            filter: brightness(1.2);
+        }
+
+        .story-card-header h4 {
+            font-size: 1.5rem;
+            font-family: var(--logo-font);
+            margin: 0;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(255, 126, 179, 0.1);
+        }
+
+        .story-card-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            text-align: left;
+            margin: 0;
+            padding: 0.5rem 0;
+            position: relative;
         }
     </style>
 </head>
 <body>
-    <!-- Добавляем оверлей для меню -->
-    <div class="menu-overlay"></div>
-
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <span class="logo-text">Swensi TRC<span class="heart-dot">❤</span></span>
-            </a>
+            <div class="nav-logo">
+                <span class="logo-text">Swensi TRC</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#" class="nav-link active" data-section="intro">
+                    <i class="fas fa-home"></i>
+                    <span>Главная</span>
+                </a>
+                <a href="#love-story" class="nav-link" data-section="story">
+                    <i class="fas fa-heart"></i>
+                    <span>История</span>
+                </a>
+                <a href="#about-ksyusha" class="nav-link" data-section="about">
+                    <i class="fas fa-star"></i>
+                    <span>О тебе</span>
+                </a>
+                <a href="#special-memories" class="nav-link" data-section="memories">
+                    <i class="fas fa-camera"></i>
+                    <span>Моменты</span>
+                </a>
+                <a href="#future" class="nav-link" data-section="future">
+                    <i class="fas fa-infinity"></i>
+                    <span>Будущее</span>
+                </a>
+            </div>
             <button class="nav-toggle">
                 <i class="fas fa-bars"></i>
             </button>
-            <div class="nav-menu">
-                <button class="close-menu">
-                    <i class="fas fa-times"></i>
-                </button>
-                <a href="#about" class="nav-link">
-                    <i class="fas fa-heart"></i>
-                    <span>О нас</span>
-                </a>
-                <a href="#memories" class="nav-link">
-                    <i class="fas fa-camera"></i>
-                    <span>Воспоминания</span>
-                </a>
-                <a href="#future" class="nav-link">
-                    <i class="fas fa-star"></i>
-                    <span>Будущее</span>
-                </a>
-                <a href="#message" class="nav-link">
-                    <i class="fas fa-envelope"></i>
-                    <span>Сообщение</span>
-                </a>
-            </div>
         </div>
     </nav>
     <div class="intro-animation">
@@ -374,6 +844,38 @@
                                 <div class="moment">
                                     <i class="fas fa-heart"></i>
                                     <span>Первые чувства</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="game-story-cards">
+                            <div class="story-card">
+                                <div class="story-card-header">
+                                    <i class="fas fa-dove"></i>
+                                    <h4>Злой Голубь</h4>
+                                </div>
+                                <div class="story-card-content">
+                                    <p>Твой ник в игре такой классный! 🕊️ "Злой Голубь" - звучит забавно и мило одновременно. Когда я впервые увидел его, сразу улыбнулся - такой необычный и запоминающийся! А как здорово он отражает твой характер: снаружи грозная, а внутри - самая добрая и нежная 💖 Прямо как супергерой среди голубей! ✨</p>
+                                </div>
+                            </div>
+
+                            <div class="story-card">
+                                <div class="story-card-header">
+                                    <i class="fas fa-star"></i>
+                                    <h4>Первая Встреча</h4>
+                                </div>
+                                <div class="story-card-content">
+                                    <p>Помню тот матч, где мы впервые встретились. Ты показала невероятную тактику и мастерство. Твой стиль игры был уникальным - точным и грациозным одновременно ✨</p>
+                                </div>
+                            </div>
+
+                            <div class="story-card">
+                                <div class="story-card-header">
+                                    <i class="fas fa-comments"></i>
+                                    <h4>Первый Разговор</h4>
+                                </div>
+                                <div class="story-card-content">
+                                    <p>После игры я решился написать тебе. Твой ответ был таким же особенным, как и ты сама. С первых слов я почувствовал, что это начало чего-то прекрасного 💝</p>
                                 </div>
                             </div>
                         </div>
@@ -526,10 +1028,10 @@
                     </div>
                 </section>
 
-                <section class="our-pet">
+                <section class="our-pet" id="our-pet">
                     <div class="section-header">
                         <i class="fas fa-paw"></i>
-                        <h2>Наш любимый Бося</h2>
+                        <h2>Бося - Твой Любимый Пёсик</h2>
                     </div>
                     <div class="pet-showcase">
                         <div class="pet-card">
@@ -539,21 +1041,28 @@
                                 </div>
                             </div>
                             <div class="pet-description">
-                                <h3>Самый верный друг</h3>
-                                <p>Бося - не просто собака, он настоящий член нашей семьи. Его любовь и преданность делают нашу историю ещё более особенной. Каждый день он дарит нам радость и счастье своим присутствием.</p>
+                                <h3>Самый Лучший Друг</h3>
+                                <p>Бося - твой маленький пушистый друг, который всегда рядом. Обожает слушать твои рассказы по ночам, виляет хвостиком от счастья и готов обниматься часами. А как он смешно наклоняет голову, когда ты с ним разговариваешь! 🐕❤️</p>
                                 <div class="pet-traits">
                                     <div class="pet-trait">
                                         <i class="fas fa-heart"></i>
-                                        <span>Любящий</span>
+                                        <span>Любимчик</span>
                                     </div>
                                     <div class="pet-trait">
                                         <i class="fas fa-star"></i>
-                                        <span>Верный</span>
+                                        <span>Милашка</span>
                                     </div>
                                     <div class="pet-trait">
-                                        <i class="fas fa-smile"></i>
-                                        <span>Игривый</span>
+                                        <i class="fas fa-moon"></i>
+                                        <span>Соня</span>
                                     </div>
+                                    <div class="pet-trait">
+                                        <i class="fas fa-cookie"></i>
+                                        <span>Сладкоежка</span>
+                                    </div>
+                                </div>
+                                <div class="pet-story">
+                                    <p class="story-highlight">Когда ты рассказываешь про Босю, у тебя всегда появляется улыбка. Он правда классный! Такой забавный и любит тебя всем своим собачьим сердечком 🐾💖</p>
                                 </div>
                             </div>
                         </div>
@@ -626,8 +1135,271 @@
         </div>
     </div>
 
-    <!-- Подключаем скрипты -->
-    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const enterButton = document.querySelector('.enter-button button');
+            const introAnimation = document.querySelector('.intro-animation');
+            const mainContent = document.querySelector('.main-content');
+            const loadingScreen = document.querySelector('.loading-screen');
+            const loadingMessage = document.querySelector('.loading-message');
+            const progressBar = document.querySelector('.progress-bar');
+            const sections = document.querySelectorAll('section');
+            const loveChains = document.querySelectorAll('.love-chain');
+            const introContent = document.querySelector('.intro-content');
+
+            const loadingMessages = [
+                "Загружаю нашу любовь...",
+                "Собираю все счастливые моменты...",
+                "Наполняю сердце нежностью...",
+                "Добавляю капельку магии...",
+                "Украшаю историю звёздами...",
+                "Готовлю особенный сюрприз...",
+                "Зажигаю огонь любви..."
+            ];
+
+            // Функция для проверки видимости элемента
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8
+                );
+            }
+
+            // Функция для анимации секций при прокрутке
+            function animateSectionsOnScroll() {
+                sections.forEach(section => {
+                    if (isElementInViewport(section)) {
+                        section.classList.add('visible');
+                    }
+                });
+            }
+
+            // Функция для анимации загрузки
+            function animateLoading() {
+                let progress = 0;
+                let messageIndex = 0;
+                loadingScreen.style.display = 'flex';
+                loadingScreen.style.opacity = '0';
+                
+                // Плавное появление экрана загрузки
+                requestAnimationFrame(() => {
+                    loadingScreen.style.opacity = '1';
+                });
+                
+                function updateProgress() {
+                    if (progress < 100) {
+                        progress += 0.5; // Замедляем прогресс для более плавной анимации
+                        progressBar.style.width = progress + '%';
+                        
+                        // Обновляем сообщение каждые ~15%
+                        if (Math.floor(progress) % 15 === 0 && progress > 0) {
+                            loadingMessage.style.opacity = '0';
+                            loadingMessage.style.transform = 'translateY(10px)';
+                            
+                            setTimeout(() => {
+                                loadingMessage.textContent = loadingMessages[messageIndex % loadingMessages.length];
+                                loadingMessage.style.opacity = '1';
+                                loadingMessage.style.transform = 'translateY(0)';
+                                messageIndex++;
+                            }, 300);
+                        }
+                        
+                        requestAnimationFrame(() => setTimeout(updateProgress, 30));
+                    } else {
+                        // Красивое завершение загрузки
+                        loadingMessage.style.opacity = '0';
+                        loadingMessage.style.transform = 'translateY(10px)';
+                        
+                        setTimeout(() => {
+                            loadingMessage.textContent = "Готово! ❤️";
+                            loadingMessage.style.opacity = '1';
+                            loadingMessage.style.transform = 'translateY(0)';
+                            
+                            setTimeout(() => {
+                                // Плавное исчезновение экрана загрузки
+                                loadingScreen.style.opacity = '0';
+                                setTimeout(() => {
+                                    loadingScreen.style.display = 'none';
+                                    showMainContent();
+                                }, 500);
+                            }, 800);
+                        }, 300);
+                    }
+                }
+                
+                setTimeout(updateProgress, 500); // Небольшая задержка перед началом загрузки
+            }
+
+            function showMainContent() {
+                introAnimation.style.display = 'none';
+                mainContent.style.display = 'block';
+                document.body.classList.add('content-visible');
+                
+                setTimeout(() => {
+                    mainContent.classList.add('visible');
+                    const hero = document.querySelector('.hero');
+                    hero.classList.add('animate-in');
+                    
+                    const letters = document.querySelectorAll('.name-letter');
+                    letters.forEach((letter, index) => {
+                        setTimeout(() => {
+                            letter.classList.add('animate-in');
+                        }, index * 200);
+                    });
+
+                    animateSectionsOnScroll();
+                }, 100);
+            }
+
+            // Обработчик кнопки входа
+            enterButton.addEventListener('click', function() {
+                // Анимация исчезновения цепочек
+                loveChains.forEach(chain => {
+                    chain.style.transform = 'translateX(' + (chain.classList.contains('left') ? '-100px' : '100px') + ')';
+                    chain.style.opacity = '0';
+                });
+
+                // Анимация уменьшения контента
+                introContent.style.transform = 'scale(0.8)';
+                introContent.style.opacity = '0';
+
+                // Запуск анимации загрузки
+                setTimeout(() => {
+                    introAnimation.classList.add('fade-out');
+                    setTimeout(() => {
+                        animateLoading();
+                    }, 500);
+                }, 500);
+            });
+
+            // Добавляем плавную прокрутку для всех внутренних ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Анимация при прокрутке
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                if (scrollTimeout) {
+                    window.cancelAnimationFrame(scrollTimeout);
+                }
+                scrollTimeout = window.requestAnimationFrame(function() {
+                    animateSectionsOnScroll();
+                });
+            });
+
+            // Добавляем эффект параллакса для фона
+            window.addEventListener('mousemove', function(e) {
+                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+                document.querySelector('.stars').style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+
+            // Анимация сердечек при клике
+            document.addEventListener('click', function(e) {
+                const heart = document.createElement('div');
+                heart.className = 'click-heart';
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
+            });
+
+            // Навигация
+            const navbar = document.querySelector('.navbar');
+            const navToggle = document.querySelector('.nav-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Изменение фона навбара при прокрутке
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Мобильное меню
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.querySelector('i').classList.toggle('fa-bars');
+                navToggle.querySelector('i').classList.toggle('fa-times');
+            });
+
+            // Активация пунктов меню при прокрутке
+            function setActiveLink() {
+                const sections = document.querySelectorAll('section');
+                let currentSection = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.scrollY >= sectionTop - 100) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').slice(1) === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', setActiveLink);
+
+            // Плавная прокрутка для ссылок навигации
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href');
+                    if (targetId === '#') {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        const targetSection = document.querySelector(targetId);
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                    // Закрываем мобильное меню после клика
+                    if (window.innerWidth <= 768) {
+                        navMenu.classList.remove('active');
+                        navToggle.querySelector('i').classList.add('fa-bars');
+                        navToggle.querySelector('i').classList.remove('fa-times');
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbar = document.querySelector('.navbar');
+            const scrollThreshold = 50;
+
+            const handleScroll = () => {
+                if (window.scrollY > scrollThreshold) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // Проверяем начальное состояние
+        });
+    </script>
 </body>
 </html> 
