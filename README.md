@@ -6,6 +6,9 @@
 [![Last Commit](https://img.shields.io/github/last-commit/swensi17/testing)](https://github.com/swensi17/testing/commits/main)
 [![Code Size](https://img.shields.io/github/languages/code-size/swensi17/testing)](https://github.com/swensi17/testing)
 [![License](https://img.shields.io/badge/license-Love%20License-pink)](https://github.com/swensi17/testing)
+[![GitHub](https://img.shields.io/badge/GitHub-swensi17-181717?style=flat&logo=github)](https://github.com/swensi17)
+[![Telegram](https://img.shields.io/badge/Telegram-swensi17-2CA5E0?style=flat&logo=telegram)](https://t.me/swensi17)
+[![Instagram](https://img.shields.io/badge/Instagram-swensi.17-E4405F?style=flat&logo=instagram)](https://instagram.com/swensi.17)
 
 <div align="center">
 
@@ -187,11 +190,46 @@ testing/
   </tr>
 </table>
 
+## 👤 Автор
+
+<div align="center">
+
+[![Author](https://img.shields.io/badge/Author-Swensi-ff69b4?style=for-the-badge)]()
+
+### Контакты
+
+[![GitHub](https://img.shields.io/badge/GitHub-swensi17-181717?style=for-the-badge&logo=github)](https://github.com/swensi17)
+[![Telegram](https://img.shields.io/badge/Telegram-swensi17-2CA5E0?style=for-the-badge&logo=telegram)](https://t.me/swensi17)
+[![Instagram](https://img.shields.io/badge/Instagram-swensi.17-E4405F?style=for-the-badge&logo=instagram)](https://instagram.com/swensi.17)
+
+</div>
+
 ## 📄 Лицензия
 
 [![License](https://img.shields.io/badge/License-Love%20Forever-red)]()
 
-Этот проект создан с любовью и распространяется под лицензией "Love Forever". Все права защищены ❤️
+### Love Forever License
+
+Copyright (c) 2024 Swensi
+
+Данный проект является личным подарком и распространяется под лицензией "Love Forever":
+
+#### 💝 Разрешается:
+- Просматривать код и вдохновляться идеями
+- Делиться ссылкой на проект
+- Отправлять любовные сообщения автору
+
+#### ❌ Запрещается:
+- Использовать код в коммерческих целях
+- Создавать копии сайта
+- Изменять содержимое без согласия автора
+
+#### ❤️ Особые условия:
+1. Проект создан с любовью и должен использоваться только для выражения искренних чувств
+2. Каждый просмотр сайта увеличивает количество любви в мире
+3. Нарушение условий лицензии может привести к разбитому сердцу
+
+**Все права защищены с любовью ❤️**
 
 ---
 
