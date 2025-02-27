@@ -11,6 +11,7 @@
     --timeline-color: #ff9a9e;
     --memory-color: #ffd1d1;
     --quote-color: #ff8a8a;
+    --nav-height: 80px;
 }
 
 * {
@@ -252,7 +253,8 @@ body {
 /* Герой секция */
 .hero {
     text-align: center;
-    padding: 100px 0 60px;
+    padding: 120px 0 60px;
+    margin-top: var(--nav-height);
     background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     border-radius: 30px;
     margin-bottom: 60px;
@@ -1891,6 +1893,7 @@ footer {
 }
 
 .main-content {
+    padding-top: var(--nav-height);
     opacity: 0;
     transform: translateY(20px);
     transition: all 1s ease-out;
