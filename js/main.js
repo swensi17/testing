@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = '';
     }
 
-    // Обработчики событий
+    // Обработчики событий для меню
     navToggle.addEventListener('click', openMenu);
     closeMenu.addEventListener('click', closeMenuFunc);
     menuOverlay.addEventListener('click', closeMenuFunc);
@@ -33,4 +33,44 @@ document.addEventListener('DOMContentLoaded', function() {
     navMenu.addEventListener('click', function(e) {
         e.stopPropagation();
     });
+
+    // Обработка анимации входа
+    const enterButton = document.querySelector('.pulse-button');
+    const introAnimation = document.querySelector('.intro-animation');
+    const loadingScreen = document.querySelector('.loading-screen');
+    const mainContent = document.querySelector('.main-content');
+
+    if (enterButton) {
+        enterButton.addEventListener('click', function() {
+            // Добавляем класс для анимации исчезновения
+            introAnimation.style.opacity = '0';
+            
+            setTimeout(() => {
+                introAnimation.style.display = 'none';
+                
+                // Показываем экран загрузки
+                loadingScreen.style.display = 'flex';
+                requestAnimationFrame(() => {
+                    loadingScreen.style.opacity = '1';
+                });
+
+                // Имитация загрузки
+                setTimeout(() => {
+                    // Скрываем экран загрузки
+                    loadingScreen.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        
+                        // Показываем основной контент
+                        mainContent.style.display = 'block';
+                        requestAnimationFrame(() => {
+                            mainContent.style.opacity = '1';
+                            document.body.classList.add('content-visible');
+                        });
+                    }, 500);
+                }, 2000);
+            }, 500);
+        });
+    }
 }); 

@@ -1083,10 +1083,11 @@ footer {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    z-index: 1000;
-    overflow: hidden;
-    transition: opacity 1.5s ease-out;
+    height: 100vh;
+    background: var(--background-color);
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
 
 .intro-bg {
@@ -1924,7 +1925,7 @@ footer {
 
 /* Стили для анимации перехода */
 .intro-animation {
-    transition: opacity 1.5s ease-out;
+    transition: opacity 0.5s ease;
 }
 
 .intro-animation.fade-out {
@@ -1940,10 +1941,12 @@ footer {
 }
 
 .main-content {
-    padding-top: var(--nav-height);
+    display: none;
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 1s ease-out;
+    transition: opacity 1s ease;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
 }
 
 .main-content.visible {
@@ -2007,21 +2010,14 @@ body.content-visible {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #ff6b6b, #ff8e8e, #ff6b6b);
-    background-size: 200% 200%;
-    animation: gradient-shift 10s ease infinite;
-    display: flex;
+    height: 100vh;
+    background: var(--background-color);
+    z-index: 9998;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
     justify-content: center;
     align-items: center;
-    z-index: 2000;
-    transition: opacity 0.5s ease;
-}
-
-@keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
 .loading-content {
@@ -2370,5 +2366,46 @@ body.content-visible {
 
     .quote-text p {
         font-size: 16px;
+    }
+}
+
+.pulse-button {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    border: none;
+    border-radius: 30px;
+    padding: 15px 30px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(232, 67, 147, 0.3);
+}
+
+.pulse-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(232, 67, 147, 0.4);
+}
+
+.pulse-button:active {
+    transform: translateY(1px);
+}
+
+.pulse-button i {
+    font-size: 1.1em;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
     }
 } 
