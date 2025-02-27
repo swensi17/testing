@@ -195,7 +195,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <span class="logo-text">К<span class="heart-dot">❤️</span>ша</span>
+                <span class="logo-text">Swensi TRC</span>
             </div>
             <div class="nav-menu">
                 <a href="#" class="nav-link active" data-section="intro">
@@ -844,6 +844,22 @@
                     }
                 });
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navbar = document.querySelector('.navbar');
+            const scrollThreshold = 50;
+
+            const handleScroll = () => {
+                if (window.scrollY > scrollThreshold) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // Проверяем начальное состояние
         });
     </script>
 </body>
