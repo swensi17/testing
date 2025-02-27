@@ -220,36 +220,38 @@
     </style>
 </head>
 <body>
+    <!-- Добавляем оверлей для меню -->
+    <div class="menu-overlay"></div>
+
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <span class="logo-text">Swensi TRC</span>
-            </div>
-            <div class="nav-menu">
-                <a href="#" class="nav-link active" data-section="intro">
-                    <i class="fas fa-home"></i>
-                    <span>Главная</span>
-                </a>
-                <a href="#love-story" class="nav-link" data-section="story">
-                    <i class="fas fa-heart"></i>
-                    <span>История</span>
-                </a>
-                <a href="#about-ksyusha" class="nav-link" data-section="about">
-                    <i class="fas fa-star"></i>
-                    <span>О тебе</span>
-                </a>
-                <a href="#special-memories" class="nav-link" data-section="memories">
-                    <i class="fas fa-camera"></i>
-                    <span>Моменты</span>
-                </a>
-                <a href="#future" class="nav-link" data-section="future">
-                    <i class="fas fa-infinity"></i>
-                    <span>Будущее</span>
-                </a>
-            </div>
+            <a href="#" class="nav-logo">
+                <span class="logo-text">Swensi TRC<span class="heart-dot">❤</span></span>
+            </a>
             <button class="nav-toggle">
                 <i class="fas fa-bars"></i>
             </button>
+            <div class="nav-menu">
+                <button class="close-menu">
+                    <i class="fas fa-times"></i>
+                </button>
+                <a href="#about" class="nav-link">
+                    <i class="fas fa-heart"></i>
+                    <span>О нас</span>
+                </a>
+                <a href="#memories" class="nav-link">
+                    <i class="fas fa-camera"></i>
+                    <span>Воспоминания</span>
+                </a>
+                <a href="#future" class="nav-link">
+                    <i class="fas fa-star"></i>
+                    <span>Будущее</span>
+                </a>
+                <a href="#message" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Сообщение</span>
+                </a>
+            </div>
         </div>
     </nav>
     <div class="intro-animation">
@@ -624,271 +626,8 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const enterButton = document.querySelector('.enter-button button');
-            const introAnimation = document.querySelector('.intro-animation');
-            const mainContent = document.querySelector('.main-content');
-            const loadingScreen = document.querySelector('.loading-screen');
-            const loadingMessage = document.querySelector('.loading-message');
-            const progressBar = document.querySelector('.progress-bar');
-            const sections = document.querySelectorAll('section');
-            const loveChains = document.querySelectorAll('.love-chain');
-            const introContent = document.querySelector('.intro-content');
-
-            const loadingMessages = [
-                "Загружаю нашу любовь...",
-                "Собираю все счастливые моменты...",
-                "Наполняю сердце нежностью...",
-                "Добавляю капельку магии...",
-                "Украшаю историю звёздами...",
-                "Готовлю особенный сюрприз...",
-                "Зажигаю огонь любви..."
-            ];
-
-            // Функция для проверки видимости элемента
-            function isElementInViewport(el) {
-                const rect = el.getBoundingClientRect();
-                return (
-                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8
-                );
-            }
-
-            // Функция для анимации секций при прокрутке
-            function animateSectionsOnScroll() {
-                sections.forEach(section => {
-                    if (isElementInViewport(section)) {
-                        section.classList.add('visible');
-                    }
-                });
-            }
-
-            // Функция для анимации загрузки
-            function animateLoading() {
-                let progress = 0;
-                let messageIndex = 0;
-                loadingScreen.style.display = 'flex';
-                loadingScreen.style.opacity = '0';
-                
-                // Плавное появление экрана загрузки
-                requestAnimationFrame(() => {
-                    loadingScreen.style.opacity = '1';
-                });
-                
-                function updateProgress() {
-                    if (progress < 100) {
-                        progress += 0.5; // Замедляем прогресс для более плавной анимации
-                        progressBar.style.width = progress + '%';
-                        
-                        // Обновляем сообщение каждые ~15%
-                        if (Math.floor(progress) % 15 === 0 && progress > 0) {
-                            loadingMessage.style.opacity = '0';
-                            loadingMessage.style.transform = 'translateY(10px)';
-                            
-                            setTimeout(() => {
-                                loadingMessage.textContent = loadingMessages[messageIndex % loadingMessages.length];
-                                loadingMessage.style.opacity = '1';
-                                loadingMessage.style.transform = 'translateY(0)';
-                                messageIndex++;
-                            }, 300);
-                        }
-                        
-                        requestAnimationFrame(() => setTimeout(updateProgress, 30));
-                    } else {
-                        // Красивое завершение загрузки
-                        loadingMessage.style.opacity = '0';
-                        loadingMessage.style.transform = 'translateY(10px)';
-                        
-                        setTimeout(() => {
-                            loadingMessage.textContent = "Готово! ❤️";
-                            loadingMessage.style.opacity = '1';
-                            loadingMessage.style.transform = 'translateY(0)';
-                            
-                            setTimeout(() => {
-                                // Плавное исчезновение экрана загрузки
-                                loadingScreen.style.opacity = '0';
-                                setTimeout(() => {
-                                    loadingScreen.style.display = 'none';
-                                    showMainContent();
-                                }, 500);
-                            }, 800);
-                        }, 300);
-                    }
-                }
-                
-                setTimeout(updateProgress, 500); // Небольшая задержка перед началом загрузки
-            }
-
-            function showMainContent() {
-                introAnimation.style.display = 'none';
-                mainContent.style.display = 'block';
-                document.body.classList.add('content-visible');
-                
-                setTimeout(() => {
-                    mainContent.classList.add('visible');
-                    const hero = document.querySelector('.hero');
-                    hero.classList.add('animate-in');
-                    
-                    const letters = document.querySelectorAll('.name-letter');
-                    letters.forEach((letter, index) => {
-                        setTimeout(() => {
-                            letter.classList.add('animate-in');
-                        }, index * 200);
-                    });
-
-                    animateSectionsOnScroll();
-                }, 100);
-            }
-
-            // Обработчик кнопки входа
-            enterButton.addEventListener('click', function() {
-                // Анимация исчезновения цепочек
-                loveChains.forEach(chain => {
-                    chain.style.transform = 'translateX(' + (chain.classList.contains('left') ? '-100px' : '100px') + ')';
-                    chain.style.opacity = '0';
-                });
-
-                // Анимация уменьшения контента
-                introContent.style.transform = 'scale(0.8)';
-                introContent.style.opacity = '0';
-
-                // Запуск анимации загрузки
-                setTimeout(() => {
-                    introAnimation.classList.add('fade-out');
-                    setTimeout(() => {
-                        animateLoading();
-                    }, 500);
-                }, 500);
-            });
-
-            // Добавляем плавную прокрутку для всех внутренних ссылок
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-
-            // Анимация при прокрутке
-            let scrollTimeout;
-            window.addEventListener('scroll', function() {
-                if (scrollTimeout) {
-                    window.cancelAnimationFrame(scrollTimeout);
-                }
-                scrollTimeout = window.requestAnimationFrame(function() {
-                    animateSectionsOnScroll();
-                });
-            });
-
-            // Добавляем эффект параллакса для фона
-            window.addEventListener('mousemove', function(e) {
-                const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-                const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-                document.querySelector('.stars').style.transform = `translate(${moveX}px, ${moveY}px)`;
-            });
-
-            // Анимация сердечек при клике
-            document.addEventListener('click', function(e) {
-                const heart = document.createElement('div');
-                heart.className = 'click-heart';
-                heart.style.left = e.clientX + 'px';
-                heart.style.top = e.clientY + 'px';
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 1000);
-            });
-
-            // Навигация
-            const navbar = document.querySelector('.navbar');
-            const navToggle = document.querySelector('.nav-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            // Изменение фона навбара при прокрутке
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            // Мобильное меню
-            navToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                navToggle.querySelector('i').classList.toggle('fa-bars');
-                navToggle.querySelector('i').classList.toggle('fa-times');
-            });
-
-            // Активация пунктов меню при прокрутке
-            function setActiveLink() {
-                const sections = document.querySelectorAll('section');
-                let currentSection = '';
-
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (window.scrollY >= sectionTop - 100) {
-                        currentSection = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').slice(1) === currentSection) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', setActiveLink);
-
-            // Плавная прокрутка для ссылок навигации
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href');
-                    if (targetId === '#') {
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        const targetSection = document.querySelector(targetId);
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                    
-                    // Закрываем мобильное меню после клика
-                    if (window.innerWidth <= 768) {
-                        navMenu.classList.remove('active');
-                        navToggle.querySelector('i').classList.add('fa-bars');
-                        navToggle.querySelector('i').classList.remove('fa-times');
-                    }
-                });
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const navbar = document.querySelector('.navbar');
-            const scrollThreshold = 50;
-
-            const handleScroll = () => {
-                if (window.scrollY > scrollThreshold) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            };
-
-            window.addEventListener('scroll', handleScroll);
-            handleScroll(); // Проверяем начальное состояние
-        });
-    </script>
+    <!-- Подключаем скрипты -->
+    <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
 </body>
 </html> 
