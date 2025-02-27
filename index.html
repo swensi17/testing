@@ -3,13 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="https://swensi17.github.io/testing/">
     <title>Ксюша ❤️ Моя любовь</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Pacifico&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://swensi17.github.io/testing/css/styles.css">
+    <style>
+        /* Основные стили */
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #4ecdc4;
+            --accent-color: #ffd93d;
+            --text-color: #2d3436;
+            --background-color: #fff0f3;
+            --card-background: rgba(255, 255, 255, 0.95);
+            --gradient-start: #ff758c;
+            --gradient-end: #ff7eb3;
+            --timeline-color: #ff9a9e;
+            --memory-color: #ffd1d1;
+            --quote-color: #ff8a8a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Стили для навигации */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            padding: 10px 0;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 107, 107, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 1.8rem;
+        }
+
+        .logo-text {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .heart-dot {
+            font-size: 1.2rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link i {
+            font-size: 1.1rem;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Адаптивность навигации */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 107, 107, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 20px;
+                flex-direction: column;
+                gap: 15px;
+                transform: translateY(-150%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                visibility: hidden;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-link {
+                width: 100%;
+                justify-content: center;
+                padding: 12px;
+                font-size: 1.1rem;
+            }
+
+            .nav-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                height: 50px;
+            }
+
+            .nav-logo {
+                font-size: 1.5rem;
+            }
+
+            .nav-menu {
+                top: 60px;
+                padding: 15px;
+            }
+
+            .nav-link {
+                font-size: 1rem;
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
