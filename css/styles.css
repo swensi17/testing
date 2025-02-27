@@ -1,16 +1,16 @@
 /* Основные стили */
 :root {
-    --primary-color: #ff6b6b;
-    --secondary-color: #4ecdc4;
-    --accent-color: #ffd93d;
+    --primary-color: #e84393;
+    --secondary-color: #a8e6cf;
+    --accent-color: #ffd3b6;
     --text-color: #2d3436;
-    --background-color: #fff0f3;
+    --background-color: #fff5f7;
     --card-background: rgba(255, 255, 255, 0.95);
-    --gradient-start: #ff758c;
-    --gradient-end: #ff7eb3;
-    --timeline-color: #ff9a9e;
-    --memory-color: #ffd1d1;
-    --quote-color: #ff8a8a;
+    --gradient-start: #fd79a8;
+    --gradient-end: #e84393;
+    --timeline-color: #fab1a0;
+    --memory-color: #ffeaa7;
+    --quote-color: #ff7675;
     --nav-height: 70px;
 }
 
@@ -36,7 +36,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(232, 67, 147, 0.1);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -45,10 +45,10 @@ body {
 
 .navbar.scrolled {
     background: linear-gradient(135deg, 
-        rgba(255, 107, 107, 0.95) 0%,
-        rgba(255, 126, 179, 0.95) 100%
+        rgba(232, 67, 147, 0.95) 0%,
+        rgba(253, 121, 168, 0.95) 100%
     );
-    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
+    box-shadow: 0 4px 20px rgba(232, 67, 147, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
 }
